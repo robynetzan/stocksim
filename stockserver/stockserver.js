@@ -2,12 +2,14 @@ var stoch = require('stochastic');
 var seedrandom = require('seedrandom');
 const fs = require('fs');
 
-var STEPS = 24;
-var stocks = [];
+const dataLocation = '../resources/stocksdata/json/'
+
+var STEPS = 100;
+var stocks = {};
 var data = [];
 
 class Stock {
-	constructor(name, price, seeds, parameters) {
+	constructor(name, filename, price, seeds, parameters) {
 		this.name = name;
 		this.seeds = seeds;
 		this.initialPrice = price;
@@ -17,14 +19,21 @@ class Stock {
 			seedrandom(seeds[1])()
 		];
 		
-		this.filePath = './output/'+name+'.json';
+		this.filePath = './output/'+filename+'.json';
 		if (!fs.existsSync(this.filePath)) {
-			fs.writeFileSync(this.filePath, JSON.stringify([0]));
+			this.initialTime = new Date();
 			this.historicalData = [0];
+			fs.writeFileSync(this.filePath, JSON.stringify(
+				{
+					"initialTime": this.initialTime.getTime(),
+					"historicalData": this.historicalData
+			}));
+			
 		} else {
-			this.historicalData = JSON.parse(fs.readFileSync(this.filePath));
+			var dataFromFile = JSON.parse(fs.readFileSync(this.filePath));
+			this.historicalData = dataFromFile.historicalData;
+			this.initialTime = new Date(dataFromFile.initialTime);
 		}
-		stocks.push(this);
 	}
 	
 	updateRandoms() {
@@ -94,15 +103,24 @@ class Stock {
 			var data = ((this.parameters.mu * this.parameters.T) + (this.parameters.sigma * this.norm(0, Math.sqrt(this.parameters.T))));
 			this.historicalData.push(data);
 		}
-		console.log(this.historicalData);
 	}
 	
 	save() {
-		fs.writeFileSync(this.filePath, JSON.stringify(this.historicalData))
+		console.log(this.historicalData);
+		fs.writeFileSync(this.filePath, JSON.stringify({
+			"historicalData": this.historicalData,
+			"initialTime": this.initialTime.getTime()
+		}))
 	}
 }
 
-const stock1 = new Stock("Lemon Man's Lemons", 60, [ "I'm stock 1", "Here's my seeds" ], { "mu": 0, "sigma": 0.2, "T": 11 } );
+var run = function() {
+	fs.readdirSync(dataLocation).forEach(filename => { 
+		var data = JSON.parse(fs.readFileSync(dataLocation+filename));
+		stocks[data.filename] = new Stock(data.name, data.filename, data.initialPrice, data.seeds, data.parameters);
+		stocks[data.filename].increment(5);
+		stocks[data.filename].save();
+	});
+}
 
-console.log(stock1.increment());
-stock1.save();
+run();

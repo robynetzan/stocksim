@@ -5,3 +5,8 @@
 .stock-card {
 	margin: 5px;
 }
+
+#graph {
+	width: 100%;
+	height: calc(100% / 1.6);
+}

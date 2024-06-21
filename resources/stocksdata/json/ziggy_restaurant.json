@@ -1,7 +1,8 @@
 {
 	"name": "Ziggy's Restaurant",
-	"flavourtext": "podcasts are ruined I just opened criminal and listened to like 3 minutes of ads only to be told it's part 2 of a two parter",
-	"initialprice": 80,
+	"filename": "ziggysrestaurant",
+	"flavourText": "podcasts are ruined I just opened criminal and listened to like 3 minutes of ads only to be told it's part 2 of a two parter",
+	"initialPrice": 80,
 	"seeds": [ "Ziggy Wiggles", "World's greatest Torchwood fan" ],
 	"parameters": { "mu": 0, "sigma": 0.5, "T": 10000 }
 }
