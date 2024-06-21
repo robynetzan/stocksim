@@ -1,0 +1,7 @@
+#stock-container {
+	display:flex; flex-wrap: wrap;
+}
+
+.stock-card {
+	margin: 5px;
+}

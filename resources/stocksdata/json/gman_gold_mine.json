@@ -1,0 +1,7 @@
+{
+	"name": "Gman's Gold Mine",
+	"flavourtext": "Lorem ipsum dolor sit amet adpisquing whatever emit no puc mes amb les ganes de besar-te",
+	"initialprice": 10,
+	"seeds": [ "I'm made of gold!", "Stable and slowly growing" ],
+	"parameters": { "mu": 0.01, "sigma": 0.05, "T": 10000 }
+}
