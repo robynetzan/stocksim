@@ -1,0 +1,15 @@
+{
+  "name": "stockserver",
+  "version": "0.0.1",
+  "description": "stock server for achat stocks",
+  "main": "stockserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "seedrandom": "^3.0.5",
+    "stochastic": "^0.0.14"
+  }
+}
